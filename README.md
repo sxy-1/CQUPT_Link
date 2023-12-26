@@ -40,20 +40,9 @@
 
 
 
+![image-20231226222748129](https://obssh.obs.cn-east-3.myhuaweicloud.com/img_sxy/202312262227180.png)
 
 
-```mermaid
-graph TD
-    A[连接WiFi] -->|系统提示无网络连接，需要认证| B[关闭认证界面]
-    B -->|记录内网IP| C[打开本程序]
-    C -->|填写信息| D[登录]
-
-    style A fill:#86C7F3,stroke:#333,stroke-width:2px;
-    style B fill:#FFD966,stroke:#333,stroke-width:2px;
-    style C fill:#86C7F3,stroke:#333,stroke-width:2px;
-    style D fill:#7ED321,stroke:#333,stroke-width:2px;
-
-```
 
 ![image-20231226172325288](https://obssh.obs.cn-east-3.myhuaweicloud.com/img_sxy/202312261723654.png)
 

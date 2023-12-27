@@ -122,7 +122,7 @@ class LoginWindow(AcrylicWindow, Ui_Form):
             title = '登录失败'
 
             if b'bGRhcCBhdXRoIGVycm9y' in response.content:
-                content = "密码错误"
+                content = "密码错误或运营商错误，请仔细检查后重试"
             elif b'aW51c2UsIGxvZ2luI' in response.content:
                 content = "请再试一次"
             elif b'dr1003({"result":"0","msg":"","ret_code":1})' in response.content:

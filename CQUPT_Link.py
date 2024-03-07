@@ -135,6 +135,8 @@ class LoginWindow(AcrylicWindow, Ui_Form):
                 content = "请仔细检查运营商等后重试"
             elif b'dr1003({"result":"0","msg":"\\u5bc6\\u7801\\u4e0d\\u80fd\\u4e3a\\u7a7a"})' in response.content:
                 content = "密码不能为空，请重新填写密码"
+            elif b'dr1003({"result":"0","msg":"\\u83b7\\u53d6\\u7528\\u6237IP\\u5931\\u8d25\\uff0c\\u8bf7\\u91cd\\u8bd5\\uff01"})' in response.content:
+                content = "请填写本机ip，Tips:可以按下”获取本机ip“按钮，一键填写"
             content += f"\n{response.status_code}\n {response.content}\n"
             print(content)
             content += f"{url}"

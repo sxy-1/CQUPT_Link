@@ -21,16 +21,16 @@ class ConnectDb:
 
     def insert_user(self, user_account, user_password, isp, method):
         self.cursor.execute('''
-               INSERT OR REPLACE INTO user (user_account, user_password, isp, method)
-               VALUES (?, ?, ?, ?)
-           ''', (user_account, user_password, isp, method))
+               INSERT OR REPLACE INTO user (id,user_account, user_password, isp, method)
+               VALUES (?,?, ?, ?, ?)
+           ''', (1,user_account, user_password, isp, method))
         self.connection.commit()
 
     def close_connection(self):
         self.connection.close()
 
     def get_first_user(self):
-        self.cursor.execute('SELECT * FROM user LIMIT 1')
+        self.cursor.execute('SELECT * FROM user where id = 1')
         result = self.cursor.fetchone()
         return result is not None, result
 

@@ -61,7 +61,7 @@ class LoginWindow(AcrylicWindow, Ui_Form):
             self.user_password = account[2]
 
             self.isp = self.isp_mapping[account[3]]
-
+            print( self.user_account,self.user_password,self.isp)
             self.method = account[4]
             self.lineEdit_3.setText(self.user_account)
             self.lineEdit_4.setText(self.user_password)
@@ -110,27 +110,35 @@ class LoginWindow(AcrylicWindow, Ui_Form):
         response = requests.get(url)
         print(response)
         print(response.content)
+        content = ''
         if response.status_code == 200 and (
                 b'dr1003({"result":"0","msg":"","ret_code":2})' in response.content or b'\u8ba4\u8bc1\u6210\u529f' in response.content):
             title = '登录成功'
-            content = ''
+
             if b'dr1003({"result":"0","msg":"","ret_code":2})' in response.content:
                 method_mapping = {"0": "电脑端", "1": "移动端"}
                 content = "重复登录，如果您想更改/伪装新的登录端，请现在自服务注销"
                 # 也可能已达到 + method_mapping[self.method]  + 数量限制
         else:
+            print("登录失败")
             title = '登录失败'
-
+            print(response.content)
+            print(b'dr1003({"result":"0","msg":"dXNlcmlkIGVycm9yMQ==","ret_code":1})' == response.content)
+            print("cao")
             if b'bGRhcCBhdXRoIGVycm9y' in response.content:
                 content = "密码错误或运营商错误，请仔细检查后重试"
             elif b'aW51c2UsIGxvZ2luI' in response.content:
                 content = "请再试一次"
             elif b'dr1003({"result":"0","msg":"","ret_code":1})' in response.content:
                 content = "请仔细检查ip地址等后重试！"
-            elif b'dr1003({"result":"0","msg":"dXNIcmlkIGVycm9yMQ==","ret_code":1})' in response.content:
+            elif b'dr1003({"result":"0","msg":"dXNlcmlkIGVycm9yMQ==","ret_code":1})' in response.content:
                 content = "请仔细检查运营商等后重试"
+            elif b'dr1003({"result":"0","msg":"\\u5bc6\\u7801\\u4e0d\\u80fd\\u4e3a\\u7a7a"})' in response.content:
+                content = "密码不能为空，请重新填写密码"
             content += f"\n{response.status_code}\n {response.content}\n"
+            print(content)
             content += f"{url}"
+            print(content)
         w = MessageBox(title, content, self)
         if w.exec():
             print('Yes button is pressed')

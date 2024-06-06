@@ -7,46 +7,28 @@
 
 
 from PyQt6 import QtCore, QtGui, QtWidgets
-from PyQt6.QtWidgets import QButtonGroup
+from PyQt6.QtCore import Qt, pyqtSignal
+from PyQt6.QtWidgets import QButtonGroup, QTreeWidgetItem
+
+from Logger import log
 
 
-class Ui_Form(object):
-    def setupUi(self, Form):
-        Form.setObjectName("Form")
-        Form.resize(1250, 809)
-        Form.setMinimumSize(QtCore.QSize(1400, 500))
-        self.horizontalLayout = QtWidgets.QHBoxLayout(Form)
-        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
-        self.horizontalLayout.setSpacing(0)
-        self.horizontalLayout.setObjectName("horizontalLayout")
-        self.label = QtWidgets.QLabel(parent=Form)
-        self.label.setText("")
-        # self.label.setPixmap(QtGui.QPixmap("./resource/images/background.jpg"))
-        self.label.setPixmap(QtGui.QPixmap(":/resource/images/gd3u3ibyyp.jpg"))
-        self.label.setScaledContents(True)
-        self.label.setObjectName("label")
-        self.horizontalLayout.addWidget(self.label)
-        self.widget = QtWidgets.QWidget(parent=Form)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred,
-                                           QtWidgets.QSizePolicy.Policy.Preferred)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.widget.sizePolicy().hasHeightForWidth())
-        self.widget.setSizePolicy(sizePolicy)
-        self.widget.setMinimumSize(QtCore.QSize(360, 0))
-        self.widget.setMaximumSize(QtCore.QSize(360, 16777215))
-        self.widget.setStyleSheet("QLabel{\n"
-                                  "    font: 13px \'Microsoft YaHei\'\n"
-                                  "}")
-        self.widget.setObjectName("widget")
-        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.widget)
-        self.verticalLayout_2.setContentsMargins(20, 20, 20, 20)
-        self.verticalLayout_2.setSpacing(9)
-        self.verticalLayout_2.setObjectName("verticalLayout_2")
+class page0(QtWidgets.QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setObjectName("page0")
+
+        # Create a new widget to contain verticalLayout_biggest
+        self.page0_vLayout = QtWidgets.QVBoxLayout(self)
+        # self.verticalLayout_biggest = QtWidgets.QVBoxLayout(self.stackedWidget)
+
+        self.page0_vLayout.setContentsMargins(20, 20, 20, 20)
+        self.page0_vLayout.setSpacing(9)
+        self.page0_vLayout.setObjectName("verticalLayout_biggest")
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum,
                                            QtWidgets.QSizePolicy.Policy.Expanding)
-        self.verticalLayout_2.addItem(spacerItem)
-        self.label_2 = QtWidgets.QLabel(parent=self.widget)
+        self.page0_vLayout.addItem(spacerItem)
+        self.label_2 = QtWidgets.QLabel()
         self.label_2.setEnabled(True)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred,
                                            QtWidgets.QSizePolicy.Policy.Expanding)
@@ -61,137 +43,423 @@ class Ui_Form(object):
         self.label_2.setScaledContents(True)
         self.label_2.setObjectName("label_2")
         self.label_2.setVisible(False)
-        self.verticalLayout_2.addWidget(self.label_2)
+        self.page0_vLayout.addWidget(self.label_2)
         spacerItem1 = QtWidgets.QSpacerItem(20, 15, QtWidgets.QSizePolicy.Policy.Minimum,
                                             QtWidgets.QSizePolicy.Policy.Fixed)
-        self.verticalLayout_2.addItem(spacerItem1)
+        self.page0_vLayout.addItem(spacerItem1)
         self.gridLayout = QtWidgets.QGridLayout()
         self.gridLayout.setHorizontalSpacing(4)
         self.gridLayout.setVerticalSpacing(9)
         self.gridLayout.setObjectName("gridLayout")
-        self.lineEdit = LineEdit(parent=self.widget)
-        self.lineEdit.setClearButtonEnabled(True)
-        self.lineEdit.setObjectName("lineEdit")
-        self.gridLayout.addWidget(self.lineEdit, 1, 0, 1, 1)
-        self.label_3 = BodyLabel(parent=self.widget)
-        self.label_3.setObjectName("label_3")
-        self.gridLayout.addWidget(self.label_3, 0, 0, 1, 1)
-        self.gridLayout.setColumnStretch(0, 2)
-        self.verticalLayout_2.addLayout(self.gridLayout)
-        self.BodyLabel = BodyLabel(parent=self.widget)
-        self.BodyLabel.setObjectName("BodyLabel")
-        self.verticalLayout_2.addWidget(self.BodyLabel)
-        self.PushButton = PushButton(parent=self.widget)
-        self.PushButton.setObjectName("PushButton")
-        self.verticalLayout_2.addWidget(self.PushButton)
-        self.LineEdit = LineEdit(parent=self.widget)
-        self.LineEdit.setObjectName("LineEdit")
-        self.verticalLayout_2.addWidget(self.LineEdit)
+        # self.lineEdit = LineEdit()
+        # self.lineEdit.setClearButtonEnabled(True)
+        # self.lineEdit.setObjectName("lineEdit")
+        # self.gridLayout.addWidget(self.lineEdit, 1, 0, 1, 1)
+        # self.label_3 = BodyLabel()
+        # self.label_3.setObjectName("label_3")
+        # self.gridLayout.addWidget(self.label_3, 0, 0, 1, 1)
+        # self.gridLayout.setColumnStretch(0, 2)
+        # self.page0_vLayout.addLayout(self.gridLayout)
+        # self.BodyLabel = BodyLabel()
+        # self.BodyLabel.setObjectName("BodyLabel")
+        # self.page0_vLayout.addWidget(self.BodyLabel)
+        # self.PushButton = PushButton()
+        # self.PushButton.setObjectName("PushButton")
+        # self.page0_vLayout.addWidget(self.PushButton)
+        # self.LineEdit = LineEdit()
+        # self.LineEdit.setObjectName("LineEdit")
+        # self.page0_vLayout.addWidget(self.LineEdit)
 
-        self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
+        self.isp_choose_hLayout = QtWidgets.QHBoxLayout()
+        self.isp_choose_hLayout.setObjectName("horizontalLayout_3")
 
-        self.RadioButton_1 = RadioButton(parent=self.widget)
+        self.RadioButton_1 = RadioButton()
         self.RadioButton_1.setObjectName("cmcc_rbtn")
-        self.horizontalLayout_3.addWidget(self.RadioButton_1)
-        self.RadioButton_2 = RadioButton(parent=self.widget)
+        self.isp_choose_hLayout.addWidget(self.RadioButton_1)
+        self.RadioButton_2 = RadioButton()
         self.RadioButton_2.setObjectName("unicom_rbtn")
-        self.horizontalLayout_3.addWidget(self.RadioButton_2)
-        self.RadioButton_3 = RadioButton(parent=self.widget)
+        self.isp_choose_hLayout.addWidget(self.RadioButton_2)
+        self.RadioButton_3 = RadioButton()
         self.RadioButton_3.setObjectName("telecom_rbtn")
-        self.horizontalLayout_3.addWidget(self.RadioButton_3)
+        self.isp_choose_hLayout.addWidget(self.RadioButton_3)
 
-        self.ispgroup = QButtonGroup(parent=self.widget)  # group
+        self.ispgroup = QButtonGroup()  # group
         self.ispgroup.addButton(self.RadioButton_1)
         self.ispgroup.addButton(self.RadioButton_2)
         self.ispgroup.addButton(self.RadioButton_3)
 
-        self.verticalLayout_2.addLayout(self.horizontalLayout_3)
+        self.page0_vLayout.addLayout(self.isp_choose_hLayout)
 
-        self.label_5 = BodyLabel(parent=self.widget)
+        self.label_5 = BodyLabel()
         self.label_5.setObjectName("label_5")
-        self.verticalLayout_2.addWidget(self.label_5)
+        self.page0_vLayout.addWidget(self.label_5)
 
-        self.lineEdit_3 = LineEdit(parent=self.widget)
+        self.lineEdit_3 = LineEdit()
         self.lineEdit_3.setClearButtonEnabled(True)
         self.lineEdit_3.setObjectName("lineEdit_3")
-        self.verticalLayout_2.addWidget(self.lineEdit_3)
-        self.label_6 = BodyLabel(parent=self.widget)
+        self.page0_vLayout.addWidget(self.lineEdit_3)
+        self.label_6 = BodyLabel()
         self.label_6.setObjectName("label_6")
-        self.verticalLayout_2.addWidget(self.label_6)
-        self.lineEdit_4 = LineEdit(parent=self.widget)
+        self.page0_vLayout.addWidget(self.label_6)
+        self.lineEdit_4 = LineEdit()
         self.lineEdit_4.setEchoMode(QtWidgets.QLineEdit.EchoMode.Password)
         self.lineEdit_4.setClearButtonEnabled(True)
         self.lineEdit_4.setObjectName("lineEdit_4")
-        self.verticalLayout_2.addWidget(self.lineEdit_4)
+        self.page0_vLayout.addWidget(self.lineEdit_4)
         spacerItem2 = QtWidgets.QSpacerItem(20, 5, QtWidgets.QSizePolicy.Policy.Minimum,
                                             QtWidgets.QSizePolicy.Policy.Fixed)
-        self.verticalLayout_2.addItem(spacerItem2)
+        self.page0_vLayout.addItem(spacerItem2)
 
-        self.horizontalLayout_4 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_4.setObjectName("horizontalLayout_4")
-
-        self.RadioButton_5 = RadioButton(parent=self.widget)
-        self.RadioButton_5.setObjectName("RadioButton_5")
-        self.horizontalLayout_4.addWidget(self.RadioButton_5)
-        self.RadioButton_6 = RadioButton(parent=self.widget)
-        self.RadioButton_6.setObjectName("RadioButton_6")
-        self.horizontalLayout_4.addWidget(self.RadioButton_6)
-
-        self.methodgroup = QButtonGroup(parent=self.widget)  # group
-        self.methodgroup.addButton(self.RadioButton_5)
-        self.methodgroup.addButton(self.RadioButton_6)
-
-        self.verticalLayout_2.addLayout(self.horizontalLayout_4)
-
-        self.checkBox = CheckBox(parent=self.widget)
-        self.checkBox.setChecked(True)
-        self.checkBox.setObjectName("checkBox")
-        self.verticalLayout_2.addWidget(self.checkBox)
+        # self.checkBox = CheckBox()
+        # self.checkBox.setChecked(True)
+        # self.checkBox.setObjectName("checkBox")
+        # self.page0_vLayout.addWidget(self.checkBox)
         spacerItem3 = QtWidgets.QSpacerItem(20, 5, QtWidgets.QSizePolicy.Policy.Minimum,
                                             QtWidgets.QSizePolicy.Policy.Fixed)
-        self.verticalLayout_2.addItem(spacerItem3)
-        self.pushButton = PrimaryPushButton(parent=self.widget)
-        self.pushButton.setObjectName("pushButton")
-        self.verticalLayout_2.addWidget(self.pushButton)
+        self.page0_vLayout.addItem(spacerItem3)
+        # self.pushButton = PrimaryPushButton()
+        # self.pushButton.setObjectName("pushButton")
+        # self.page0_vLayout.addWidget(self.pushButton)
         spacerItem4 = QtWidgets.QSpacerItem(20, 6, QtWidgets.QSizePolicy.Policy.Minimum,
                                             QtWidgets.QSizePolicy.Policy.Fixed)
-        self.verticalLayout_2.addItem(spacerItem4)
-        self.pushButton_2 = HyperlinkButton(parent=self.widget)
+        self.page0_vLayout.addItem(spacerItem4)
+        self.pushButton_2 = HyperlinkButton()
         self.pushButton_2.setObjectName("pushButton_2")
-        self.verticalLayout_2.addWidget(self.pushButton_2)
+        self.page0_vLayout.addWidget(self.pushButton_2)
         spacerItem5 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum,
                                             QtWidgets.QSizePolicy.Policy.Expanding)
-        self.verticalLayout_2.addItem(spacerItem5)
-        self.horizontalLayout.addWidget(self.widget)
+        self.page0_vLayout.addItem(spacerItem5)
+
+        self.retranslateUi()
+
+    def retranslateUi(self):
+        # self.lineEdit.setText("192.168.200.2")
+        # self.lineEdit.hide()
+        # self.label_3.setText( "url")
+        # self.label_3.hide()
+        # self.label_3.setVisible(False)
+        # self.BodyLabel.setText("内网ip")
+        # self.PushButton.setText( "获取本机ip")
+        self.RadioButton_1.setText("移动")
+        self.RadioButton_2.setText("联通")
+        self.RadioButton_3.setText("电信")
+
+        self.label_5.setText("用户名")
+        self.lineEdit_3.setPlaceholderText("统一认证号")
+        self.label_6.setText("密码")
+        self.lineEdit_4.setPlaceholderText("")
+        # self.label_7.setText(_translate("Form", "指定其他的ip"))
+        # self.checkBox.setText( "记住本次选择")
+        # self.pushButton.setText( "登录")
+        self.pushButton_2.setText("自服务")
+
+
+class page1(QtWidgets.QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setObjectName("page1")
+        # Create a new widget to contain verticalLayout_biggest
+        self.vLayout = QtWidgets.QVBoxLayout(self)
+        self.vLayout.setContentsMargins(20, 20, 20, 20)
+        # self.vLayout.setSpacing(30)
+        self.vLayout.setObjectName("verticalLayout_biggest")
+        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum,
+                                           QtWidgets.QSizePolicy.Policy.Expanding)
+        self.vLayout.addItem(spacerItem)
+
+        self.local_ip_rbtn = RadioButton()
+        self.local_ip_rbtn.setObjectName("local_ip_rbtn")
+
+        self.others_ip_rbtn = RadioButton()
+        self.others_ip_rbtn.setObjectName("others_ip_rbtn")
+
+        self.methodgroup = QButtonGroup()  # group 电脑端 移动端
+        self.methodgroup.addButton(self.local_ip_rbtn)
+        self.methodgroup.addButton(self.others_ip_rbtn)
+
+        self.others_ip_edit = LineEdit()
+        self.others_ip_edit.setClearButtonEnabled(True)
+        self.others_ip_edit.setObjectName("others_ip_edit")
+        self.others_ip_edit.setPlaceholderText("此处填写其他设备ipv4地址")
+
+        self.vLayout.addWidget(self.local_ip_rbtn)
+        self.vLayout.addWidget(self.others_ip_rbtn)
+        self.vLayout.addWidget(self.others_ip_edit)
+
+        self.local_ip_rbtn.toggled.connect(self.localIpBtnClicked)
+        self.others_ip_rbtn.toggled.connect(self.othersIpBtnClicked)
+        self.local_ip_rbtn.setChecked(True)
+
+        self.vLayout.addItem(spacerItem)
+        self.retranslateUi()
+
+    def localIpBtnClicked(self):
+        self.others_ip_edit.clear()
+        self.others_ip_edit.hide()
+
+    def othersIpBtnClicked(self):
+        self.others_ip_edit.show()
+
+    def retranslateUi(self):
+        self.local_ip_rbtn.setText("使用本机ip")
+        self.others_ip_rbtn.setText("指定其他ip")
+
+
+class page2(QtWidgets.QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setObjectName("page2")
+        # Create a new widget to contain verticalLayout_biggest
+        self.vLayout = QtWidgets.QVBoxLayout(self)
+        self.vLayout.setContentsMargins(20, 20, 20, 20)
+        # self.vLayout.setSpacing(3)
+        self.vLayout.setObjectName("verticalLayout_biggest")
+        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum,
+                                           QtWidgets.QSizePolicy.Policy.Expanding)
+        self.vLayout.addItem(spacerItem)
+
+        self.wired_rbtn = RadioButton()
+        self.wired_rbtn.setObjectName("wired_rbtn")
+
+        self.wireless_rbtn = RadioButton()
+        self.wireless_rbtn.setObjectName("wireless_rbtn")
+
+        self.methodgroup = QButtonGroup()  # group 有线/无线
+        self.methodgroup.addButton(self.wired_rbtn)
+        self.methodgroup.addButton(self.wireless_rbtn)
+
+        self.vLayout.addWidget(self.wireless_rbtn)
+        self.vLayout.addWidget(self.wired_rbtn)
+
+        self.wireless_rbtn.setChecked(True)
+
+        self.vLayout.addItem(spacerItem)
+        self.retranslateUi()
+
+    def retranslateUi(self):
+        self.wired_rbtn.setText("本机使用网线连接")
+        self.wireless_rbtn.setText("本机使用wifi连接")
+
+
+class page3(QtWidgets.QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setObjectName("page3")
+        # Create a new widget to contain verticalLayout_biggest
+        self.vLayout = QtWidgets.QVBoxLayout(self)
+        self.vLayout.setContentsMargins(20, 20, 20, 20)
+        # self.vLayout.setSpacing(3)
+        self.vLayout.setObjectName("verticalLayout_biggest")
+        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum,
+                                           QtWidgets.QSizePolicy.Policy.Expanding)
+        self.vLayout.addItem(spacerItem)
+
+        self.PC_rbtn = RadioButton()
+        self.PC_rbtn.setObjectName("PC_rbtn")
+
+        self.PE_rbtn = RadioButton()
+        self.PE_rbtn.setObjectName("PE_rbtn")
+
+        self.methodgroup = QButtonGroup()  # group 电脑端 移动端
+        self.methodgroup.addButton(self.PC_rbtn)
+        self.methodgroup.addButton(self.PE_rbtn)
+        self.vLayout.addWidget(self.PC_rbtn)
+        self.vLayout.addWidget(self.PE_rbtn)
+        self.vLayout.addItem(spacerItem)
+        self.PE_rbtn.setChecked(True)
+        self.retranslateUi()
+
+    def retranslateUi(self):
+        self.PC_rbtn.setText("作为电脑端登录")
+        self.PE_rbtn.setText("作为移动端登录")
+
+
+class page4(QtWidgets.QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setObjectName("page4")
+        # Create a new widget to contain verticalLayout_biggest
+        self.vLayout = QtWidgets.QVBoxLayout(self)
+        self.vLayout.setContentsMargins(20, 20, 20, 20)
+        # self.vLayout.setSpacing(3)
+        self.vLayout.setObjectName("verticalLayout_biggest")
+        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum,
+                                           QtWidgets.QSizePolicy.Policy.Expanding)
+        self.vLayout.addItem(spacerItem)
+
+        # Create a horizontal layout for stateTooltip
+        hLayout = QtWidgets.QHBoxLayout()
+        hLayout.setContentsMargins(0, 0, 0, 0)
+        self.stateTooltip = None
+        # Add spacer to the left to push the tooltip to the right
+        hLayout.addItem(
+            QtWidgets.QSpacerItem(160, 160, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum))
+        hLayout.addWidget(self.stateTooltip)
+
+
+        self.normal_login_rbtn = RadioButton()
+        self.normal_login_rbtn.setObjectName("normal_login_rbtn")
+
+        self.special_login_rbtn = RadioButton()
+        self.special_login_rbtn.setObjectName("special_login_rbtn")
+
+        self.methodgroup = QButtonGroup()  # group 一次登录 二次登录
+        self.methodgroup.addButton(self.normal_login_rbtn)
+        self.methodgroup.addButton(self.special_login_rbtn)
+
+        self.vLayout.addLayout(hLayout)
+        self.vLayout.addWidget(self.normal_login_rbtn)
+        self.vLayout.addWidget(self.special_login_rbtn)
+        self.vLayout.addItem(spacerItem)
+        self.normal_login_rbtn.setChecked(True)
+        self.retranslateUi()
+
+    def retranslateUi(self):
+        self.normal_login_rbtn.setText("普通登录")
+        self.special_login_rbtn.setText("特殊登录")
+
+
+class Ui_Form(object):
+    login_button_clicked = pyqtSignal()
+    def setupUi(self, Form):
+        log.info("c")
+
+
+        Form.setObjectName("Form")
+        Form.resize(1250, 1000)
+        Form.setMinimumSize(QtCore.QSize(1400, 500))
+        # 这是最大的水平布局 左边是图片 右边是主页面
+        self.horizontalLayout = QtWidgets.QHBoxLayout(Form)
+        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout.setSpacing(0)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+
+        # 这是左边的图片
+        self.label = QtWidgets.QLabel(parent=Form)
+        self.label.setText("")
+        # self.label.setPixmap(QtGui.QPixmap("./resource/images/background.jpg"))
+        self.label.setPixmap(QtGui.QPixmap(":/resource/images/gd3u3ibyyp.jpg"))
+        self.label.setScaledContents(True)
+        self.label.setObjectName("label")
+        self.horizontalLayout.addWidget(self.label)
+        # 图片end
+
+        # 这是右边的主页面（垂直布局） 分为上下两部分 上面的按钮/输入框等(使用stackedWidget) & 下面的上一步/下一步
+        self.right_big_widget = QtWidgets.QWidget(parent=Form)
+        self.right_big_widget.setObjectName("right_big_widget")
+        self.right_big_vlayout = QtWidgets.QVBoxLayout(self.right_big_widget)
+        self.right_big_vlayout.setContentsMargins(20, 20, 20, 20)
+        self.right_big_vlayout.setSpacing(9)
+        self.right_big_vlayout.setObjectName("right_big_vlayout")
+
+        # 右上角的stackedWidget
+        self.stackedWidget = QtWidgets.QStackedWidget(parent=Form)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred,
+                                           QtWidgets.QSizePolicy.Policy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.stackedWidget.sizePolicy().hasHeightForWidth())
+        self.stackedWidget.setSizePolicy(sizePolicy)
+        self.stackedWidget.setMinimumSize(QtCore.QSize(360, 0))
+        self.stackedWidget.setMaximumSize(QtCore.QSize(360, 16777215))
+        self.stackedWidget.setStyleSheet("QLabel{\n"
+                                         "    font: 13px \'Microsoft YaHei\'\n"
+                                         "}")
+        self.stackedWidget.setObjectName("stackedWidget")
+
+        # page_0 主页登录页
+
+        self.page_0 = page0()
+
+        # page_1 本机/其他设备选择页
+        self.page_1 = page1()
+
+        # page_2 有线/无线连接
+
+        # self.page_2 = page2()
+
+        # page_3 坑位选择
+        self.page_3 = page3()
+
+        # page_4 登录种类选择
+        self.page_4 = page4()
+
+        # stackedWidget添加每一个page
+        self.stackedWidget.addWidget(self.page_0)
+        self.stackedWidget.addWidget(self.page_1)
+        # self.stackedWidget.addWidget(self.page_2)
+        self.stackedWidget.addWidget(self.page_3)
+        self.stackedWidget.addWidget(self.page_4)
+
+        # Add next/previous buttons
+        self.page_change_widget = QtWidgets.QWidget(parent=self.right_big_widget)
+        self.page_change_widget.setObjectName("page_change_widget")
+        self.page_change_hlayout = QtWidgets.QHBoxLayout(self.page_change_widget)
+        self.page_change_hlayout.setContentsMargins(20, 20, 20, 20)
+        self.page_change_hlayout.setSpacing(9)
+        self.page_change_hlayout.setObjectName("page_change_hlayout")
+        self.page_change_widget.setLayout(self.page_change_hlayout)
+
+        self.nextButton = PrimaryPushButton(text="下一步", parent=self.right_big_widget)
+        self.previousButton = TransparentPushButton(text="上一步", parent=self.right_big_widget)
+        self.nextButton.clicked.connect(self.click_next)
+        self.previousButton.clicked.connect(self.click_previous)
+
+        self.page_change_hlayout.addWidget(self.previousButton)
+        self.page_change_hlayout.addWidget(self.nextButton)
+
+        # 右边大layout 添加上下两个widget
+        self.right_big_vlayout.addWidget(self.stackedWidget)
+        self.right_big_vlayout.addWidget(self.page_change_widget)
+
+        self.horizontalLayout.addWidget(self.right_big_widget)
+        self.right_big_widget.setLayout(self.right_big_vlayout)
+
+        Form.setLayout(self.horizontalLayout)
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
+    def click_next(self):
+        last_index = self.stackedWidget.count() - 1
+        # 判断如果是最后一页就不允许往后翻页
+        if self.stackedWidget.currentIndex() == last_index:
+            log.info("登录按钮点击")
+            self.login_button_clicked.emit()
+            log.info("登录按钮点击")
+        target_index = self.stackedWidget.currentIndex() + 1
+        # 如果选择指定其他ip 则跳过页面2
+        # if self.stackedWidget.currentIndex() == 1 and self.page_1.others_ip_rbtn.isChecked():
+        #     target_index = self.stackedWidget.currentIndex() + 2
+        self.stackedWidget.setCurrentIndex(target_index)
+        self.refresh_button()
+
+    def click_previous(self):
+        # 判断如果是第一页就不允许往前翻页
+        if self.stackedWidget.currentIndex() == 0:
+            return
+        target_index = self.stackedWidget.currentIndex() - 1
+        # 如果选择指定其他ip 则跳过页面2
+        # if self.stackedWidget.currentIndex() == 3 and self.page_1.others_ip_rbtn.isChecked():
+        #     target_index = self.stackedWidget.currentIndex() - 2
+        self.stackedWidget.setCurrentIndex(target_index)
+        self.refresh_button()
+
+    def refresh_button(self):
+        if self.stackedWidget.currentIndex() == 3:
+            self.nextButton.setText("登录")
+        else:
+            self.nextButton.setText("下一步")
+
+
+
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
-        self.lineEdit.setText(_translate("Form", "192.168.200.2"))
-
-        self.label_3.setText(_translate("Form", "url"))
-        self.BodyLabel.setText(_translate("Form", "内网ip"))
-        self.PushButton.setText(_translate("Form", "获取本机ip"))
-        self.RadioButton_1.setText(_translate("Form", "移动"))
-        self.RadioButton_2.setText(_translate("Form", "联通"))
-        self.RadioButton_3.setText(_translate("Form", "电信"))
-        self.RadioButton_5.setText(_translate("Form", "电脑端"))
-        self.RadioButton_6.setText(_translate("Form", "移动端"))
-
-        self.label_5.setText(_translate("Form", "用户名"))
-        self.lineEdit_3.setPlaceholderText(_translate("Form", "统一认证号"))
-        self.label_6.setText(_translate("Form", "密码"))
-        self.lineEdit_4.setPlaceholderText(_translate("Form", ""))
-        self.checkBox.setText(_translate("Form", "记住本次选择"))
-        self.pushButton.setText(_translate("Form", "登录"))
-        self.pushButton_2.setText(_translate("Form", "自服务"))
 
 
-from qfluentwidgets import BodyLabel, CheckBox, HyperlinkButton, LineEdit, PrimaryPushButton, PushButton, RadioButton
+from qfluentwidgets import BodyLabel, CheckBox, HyperlinkButton, LineEdit, PrimaryPushButton, PushButton, RadioButton, \
+    TreeWidget, TransparentPushButton
 
 if __name__ == "__main__":
     import sys

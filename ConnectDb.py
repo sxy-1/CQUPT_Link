@@ -14,16 +14,18 @@ class ConnectDb:
                 user_account VARCHAR(20),
                 user_password VARCHAR(20),
                 isp VARCHAR(20),
-                method VARCHAR(20)
+                ip_master VARCHAR(20),
+                method VARCHAR(20),
+                login_method VARCHAR(20)
             )
         ''')
         self.connection.commit()
 
-    def insert_user(self, user_account, user_password, isp, method):
+    def insert_user(self, user_account, user_password,isp, ip_master, method,login_method):
         self.cursor.execute('''
-               INSERT OR REPLACE INTO user (id,user_account, user_password, isp, method)
-               VALUES (?,?, ?, ?, ?)
-           ''', (1,user_account, user_password, isp, method))
+               INSERT OR REPLACE INTO user (id,user_account, user_password,isp, ip_master, method,login_method)
+               VALUES (?,?, ?, ?,?,?,?)
+           ''', (1,user_account, user_password, isp, ip_master, method,login_method))
         self.connection.commit()
 
     def close_connection(self):

@@ -21,6 +21,12 @@ __pycache__/
 # Compiled files
 build/
 dist/
+dist - 副本/
+log/
+account.db
+config.json
+generate_tree.py
+net_speed.py
 
 # macOS
 .DS_Store

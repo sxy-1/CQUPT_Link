@@ -7,7 +7,7 @@ from PyQt6.QtCore import Qt, QLocale, QObject, pyqtSignal, QThread
 from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtWidgets import QApplication
 from qframelesswindow import AcrylicWindow
-from qfluentwidgets import setThemeColor, FluentTranslator, SplitTitleBar, MessageBox,StateToolTip
+from qfluentwidgets import setThemeColor, FluentTranslator, SplitTitleBar, MessageBox, StateToolTip
 from change_mac_csdn import SetMac
 from LoginWindow import Ui_Form
 from ConnectDb import ConnectDb
@@ -30,6 +30,7 @@ requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
 class Mysignals(QObject):
     text_print = pyqtSignal(str)
 
+
 # 特殊登录传的新线程类
 class Worker(QObject):
     finished = pyqtSignal()
@@ -42,6 +43,8 @@ class Worker(QObject):
         # Call the special_login method of the parent (LoginWindow)
         self.parent().special_login()
         self.finished.emit()  # Emit finished signal when done
+
+
 class StateToolTipWorker(QObject):
     def __init__(self, state_tooltip, parent=None):
         super().__init__(parent)
@@ -87,14 +90,6 @@ class LoginWindow(AcrylicWindow, Ui_Form):
         desktop = QApplication.screens()[0].availableGeometry()
         w, h = desktop.width(), desktop.height()
         self.move(w // 2 - self.width() // 2, h // 2 - self.height() // 2)
-
-
-
-
-
-
-
-
 
         # 以下是核心代码
         self.BASE_URL = "http://192.168.200.2:801/eportal"
@@ -151,12 +146,7 @@ class LoginWindow(AcrylicWindow, Ui_Form):
 
     def login(self):
         log.info("正在登录")
-        w = MessageBox("","",self)
-
-
-
-
-
+        w = MessageBox("", "", self)
 
         # w.show()
         if self.page_4.normal_login_rbtn.isChecked():
@@ -168,7 +158,6 @@ class LoginWindow(AcrylicWindow, Ui_Form):
 
             self.nextButton.setEnabled(False)
             self.previousButton.setEnabled(False)
-
 
             # self.page_4.stateTooltip = StateToolTip('正在登录', '客官请耐心等待哦~~', self)
             # self.page_4.stateTooltip.move(1000, 50)
@@ -197,29 +186,8 @@ class LoginWindow(AcrylicWindow, Ui_Form):
             # self.page_4.stateTooltip.move(1000, 50)
             # self.page_4.stateTooltip.show()
 
-
-
-
-
-
     # 特殊登录流程：注销 -> 一次普通登录 -> change_mac -> 一次普通登录
     def special_login(self):
-        # self.hide()
-        # change_mac = SetMac()
-        # change_mac.run()
-        # connect_wifi.connect_to_wifi()
-        # log.info("wifi已连接 开始sleep")
-        # change_mac.get_macinfos()
-        # time.sleep(15)
-        # log.info("sleep完成 开始refresh")
-        # change_mac.get_macinfos()
-        # self.refresh()
-        # log.info("refresh完成 开始login")
-        # change_mac.get_macinfos()
-        # self.login()
-        # log.info("login完成")
-        # change_mac.get_macinfos()
-
         # 一次登录
         log.info("特殊登录开始，首次登录中")
         wired_kind, ip = get_local_ip()
@@ -232,28 +200,19 @@ class LoginWindow(AcrylicWindow, Ui_Form):
 
         username = self.page_0.lineEdit_3.text()
         user_info = query_user_info(username)
-        fuck_user(username,user_info)
+        fuck_user(username, user_info)
         log.info("注销完成")
 
-        # 判断设备型号
-        log.info("第一次修改mac开始")
-
+        # # 判断设备型号
+        # log.info("第一次修改mac开始")
 
         change_mac = SetMac(wired_kind)
-        change_mac.run()
-        log.info("第一次修改mac完成")
+        # change_mac.run()
+        # log.info("第一次修改mac完成")
 
+        # 不sleep有概率 UmFkOjEwOTAyNjAwNHwxMDkwMjAwMTN8UmVqZWN0IGJ5IGNvbmN1cnJlbmN5IGNvbnRyb2wu报错
+        time.sleep(1)
 
-
-        #   connect_wifi.connect_to_wifi() ######################################以太网注释
-        # log.info("wifi已连接 开始sleep")
-        # # change_mac.get_macinfos() #部署要删
-        # time.sleep(15)
-        # log.info("sleep完成 开始refresh")
-        # # change_mac.get_macinfos()  #部署要删
-        # self.refresh()
-        # log.info("refresh完成 开始login")
-        # # change_mac.get_macinfos() #部署要删
         res = self.normal_login(show=False)
         if not res:
             log.debug("第一次登录失败")
@@ -267,15 +226,7 @@ class LoginWindow(AcrylicWindow, Ui_Form):
         log.info("第二次修改mac开始")
         change_mac.run()
         log.info("第二次修改mac结束")
-        # connect_wifi.connect_to_wifi()  ######################################以太网注释
-        # log.info("wifi已连接 开始sleep")
-        # change_mac.get_macinfos() #部署要删
-        # time.sleep(15)
-        # log.info("sleep完成 开始refresh")
-        # change_mac.get_macinfos()  #部署要删
-        # self.refresh()
-        # log.info("refresh完成 开始login")
-        # change_mac.get_macinfos() #部署要删
+
         interval = config.get_config_value("interval")
         # log.info(time.time() + " " + start_time)
         # 等待指定时间间隔
@@ -285,9 +236,6 @@ class LoginWindow(AcrylicWindow, Ui_Form):
         self.normal_login()
 
         log.info("login完成 以下为login后的mac:")
-        # change_mac.get_macinfos()  # 部署要删
-        # time.sleep(15)  #？？？
-        # self.show()
 
     def normal_login(self, show=True):
 

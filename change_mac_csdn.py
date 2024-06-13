@@ -97,24 +97,17 @@ class SetMac(object):
     import random
 
     def generate_random_mac(self):
-        # MAC地址的前三个字节通常由厂商代码组成，我们可以使用常见的厂商代码列表，也可以随机生成
-        mac_prefix = [0x00, 0x16, 0x3e, 0x52, 0x53, 0x54]  # 常见的厂商代码列表，你也可以根据需要进行扩展
+        # 第一个字节必须是2、6、A或E
+        first_byte = random.choice([0x02, 0x06, 0x0A, 0x0E])
 
-        # 生成剩余的3个字节的随机部分
-        mac_address = [random.randint(0x00, 0xff) for _ in range(4)]
+        # 生成剩余的5个字节
+        remaining_bytes = [random.randint(0x00, 0xff) for _ in range(5)]
 
-        # 生成MAC地址的最后3个字节
-        mac_tail = ':'.join(map(lambda x: "%02x" % x, mac_address))
+        # 组合成MAC地址
+        mac_address = [first_byte] + remaining_bytes
+        mac_address_str = "".join(["%02X" % byte for byte in mac_address])
 
-        # 随机选择厂商代码，并将其转换为十六进制
-        mac_prefix_index = random.randint(0, len(mac_prefix) - 1)
-        mac_prefix_str = "%02x" % mac_prefix[mac_prefix_index]
-
-        # 组合成最终的MAC地址
-        mac_address = "%s:%s:%s:%s:%s:%s" % (
-        "02", mac_prefix_str, mac_tail[0:2], mac_tail[3:5], mac_tail[6:8], mac_tail[9:11])
-        log.info("随机mac: "+ mac_address)
-        return mac_address
+        return mac_address_str
 
 
 
@@ -168,7 +161,8 @@ class SetMac(object):
             winreg.CloseKey(key)
             winreg.CloseKey(reg_hdl)
             return
-
+        print("device found")
+        print(adapter_path)
         # Registry path found update mac addr
         adapter_key = winreg.OpenKey(reg_hdl, adapter_path, 0, winreg.KEY_WRITE)
         winreg.SetValueEx(adapter_key, "NetworkAddress", 0, winreg.REG_SZ, new_mac)
@@ -184,6 +178,7 @@ class SetMac(object):
         """
         Disables and then re-enables device interface
         """
+        print(target_index)
         if platform.release() == 'XP':
             # description, adapter_name, address, current_address = find_interface(device)
             cmd = "devcon hwids =net"
@@ -214,5 +209,5 @@ class SetMac(object):
 
 
 if __name__ == '__main__':
-    set_mac = SetMac()
+    set_mac = SetMac("wireless")
     set_mac.run()

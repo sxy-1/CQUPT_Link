@@ -2,6 +2,10 @@
 *.pyc
 __pycache__/
 
+# workspace
+.history/
+
+
 # database
 *.db
 

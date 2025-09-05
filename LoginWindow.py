@@ -294,7 +294,8 @@ class page4(QtWidgets.QWidget):
         # Add spacer to the left to push the tooltip to the right
         hLayout.addItem(
             QtWidgets.QSpacerItem(160, 160, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum))
-        hLayout.addWidget(self.stateTooltip)
+        # 不要添加None widget到布局中
+        # hLayout.addWidget(self.stateTooltip)
 
 
         self.normal_login_rbtn = RadioButton()

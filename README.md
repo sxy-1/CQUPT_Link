@@ -9,13 +9,13 @@
 </p>
 <p align="center">
   <a style="text-decoration:none">
-    <img src="https://img.shields.io/badge/Platform-Win-blue?color=#4ec820" alt="Platform Win"/>
+    <img src="https://img.shields.io/badge/Platform-Win%20%7C%20macOS%20%7C%20Linux-blue?color=#4ec820" alt="Platform Win|macOS|Linux"/>
   </a>
   <a style="text-decoration:none">
     <img src="https://img.shields.io/badge/License-GPLv3-blue?color=#4ec820" alt="GPLv3"/>
     </a>
     <a style="text-decoration:none">
-    <img src="https://img.shields.io/badge/version-2.0.1-blue?color=#4ec820" alt="v2.0.1"/>
+    <img src="https://img.shields.io/badge/version-2.0.1-blue?color=#4ec820" alt="v2.0.2"/>
   </a>
 </p>
 
@@ -43,27 +43,25 @@
 
 ```
 |----account.db         sqlite3数据库 如果没有自动生成
-|----change_mac_csdn.py 修改mac
+|----change_mac_csdn.py 跨平台MAC地址修改
 |----config.json        设置间隔时间、编码
 |----config.py          配置文件处理
 |----ConnectDb.py       连接数据库程序
-|----connect_wifi.py    连接wifi
 |----CQUPT_Link.py      主程序
-|----Get_local_ip.py    获取有线/无线的本地ip
-|----images.py			使用pyrcc5转换图片
-|----images.qrc			使用pyrcc5转换图片
-|----is_admin.py		转为管理员身份运行
-|----LICENSE			GPL-3.0 license
-|----log\				日志文件
-|----Logger.py			日志处理
-|----LoginWindow.py		登录界面
-|----Logout.py			校园网注销
-|----pyrcc5.exe  		pyrcc5处理图片
-|----README.md			README
-|----requirements.txt 	依赖，可能有冗余
-|----resource\			资源文件
-|----untitled.ui		源ui
-|----zifuwu.py			打开自服务
+|----images.py          Qt资源文件 (图片资源)
+|----images.qrc         Qt资源配置文件
+|----is_admin.py        跨平台管理员权限检查
+|----LICENSE            GPL-3.0 license
+|----log\               日志文件
+|----Logger.py          日志处理
+|----LoginWindow.py     登录界面
+|----Logout.py          校园网注销
+|----README.md          README
+|----requirements.txt   跨平台依赖配置
+|----resource\          资源文件
+|----src\               多平台架构支持
+|----untitled.ui        源ui
+|----zifuwu.py          打开自服务
 
 ```
 

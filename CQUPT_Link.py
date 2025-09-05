@@ -1,7 +1,6 @@
 import sys
-
 import time
-
+import platform
 import webbrowser
 from PyQt6.QtCore import Qt, QLocale, QObject, pyqtSignal, QThread
 from PyQt6.QtGui import QIcon, QPixmap
@@ -330,7 +329,12 @@ class LoginWindow(AcrylicWindow, Ui_Form):
             "jsVersion": "3.3.3",
             "v": "6305",
         }
-        r = requests.get(url=self.BASE_URL, params=params, verify=False, timeout=10)
+        try:
+            r = requests.get(url=self.BASE_URL, params=params, verify=False, timeout=15)
+        except Exception as e:
+            log.error(f"校园网连接失败: {str(e)}")
+            MessageBox("连接失败", f"无法连接到校园网服务器\n\n可能原因:\n• 服务器繁忙\n• 网络不稳定\n• 您可能已登录\n• 没有选择CQUPT相关WIFI\n• 开启了其他代理\n\n请稍后重试", self).exec()
+            return False
         response_text = r.text.encode("utf-8").decode("unicode_escape")
         print("responst_text" + response_text)
         # response = json.loads(r.text[1:-1])

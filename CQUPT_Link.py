@@ -7,19 +7,24 @@ from PyQt6.QtCore import Qt, QLocale, QObject, pyqtSignal, QThread
 from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtWidgets import QApplication
 from qframelesswindow import AcrylicWindow
-from qfluentwidgets import setThemeColor, FluentTranslator, SplitTitleBar, MessageBox, StateToolTip
+from qfluentwidgets import (
+    setThemeColor,
+    FluentTranslator,
+    SplitTitleBar,
+    MessageBox,
+    StateToolTip,
+)
 from change_mac_csdn import SetMac
 from LoginWindow import Ui_Form
 from ConnectDb import ConnectDb
-import connect_wifi
 import images  # 不要删，导入qrc文件
 from Logger import log
 from is_admin import is_admin
-from Get_local_ip import get_local_ip
 import requests
 from Logout import *
 import json
 import config
+from src.factory import Factory
 
 ## Disable SSL verification warnings.
 from urllib3.exceptions import InsecureRequestWarning
@@ -60,20 +65,20 @@ class LoginWindow(AcrylicWindow, Ui_Form):
     db = ConnectDb()
 
     def __init__(self):
+        self.platform = Factory.create_platform()
         super().__init__()
-        log.info("a")
-        is_admin()  # 以管理员身份运行 以运行之后的 change_mac
-        log.info('b')
+        # TODO: delete it, since special login was deprecated.
+        # is_admin()  # 以管理员身份运行 以运行之后的 change_mac
 
         self.setupUi(self)
         # setTheme(Theme.DARK)
-        setThemeColor('#28afe9')
+        setThemeColor("#28afe9")
 
         self.setTitleBar(SplitTitleBar(self))
         self.titleBar.raise_()
 
         self.label.setScaledContents(False)
-        self.setWindowTitle('重邮校园网登录')
+        self.setWindowTitle("重邮校园网登录")
         self.setWindowIcon(QIcon(":/resource/images/logo.png"))
         self.resize(1000, 650)
 
@@ -94,7 +99,9 @@ class LoginWindow(AcrylicWindow, Ui_Form):
         # 以下是核心代码
         self.BASE_URL = "http://192.168.200.2:801/eportal"
 
-        self.page_0.pushButton_2.clicked.connect(lambda: webbrowser.open("https://202.202.32.120:8443/Self/login/"))
+        self.page_0.pushButton_2.clicked.connect(
+            lambda: webbrowser.open("https://202.202.32.120:8443/Self/login/")
+        )
 
         exists, account = self.db.get_first_user()
 
@@ -150,7 +157,6 @@ class LoginWindow(AcrylicWindow, Ui_Form):
 
         # w.show()
         if self.page_4.normal_login_rbtn.isChecked():
-
             self.normal_login()
         else:
             print("wtf")
@@ -190,10 +196,14 @@ class LoginWindow(AcrylicWindow, Ui_Form):
     def special_login(self):
         # 一次登录
         log.info("特殊登录开始，首次登录中")
-        wired_kind, ip = get_local_ip()
+        wired_kind, ip = self.platform.get_network_manager().get_local_ip()
         print(ip, wired_kind)
         if wired_kind is None or (not ip.startswith("10")):
-            MessageBox("错误", "ip地址非法，可能是内部错误,请检查是否使用无线登录，是否开启wifi", self).exec()
+            MessageBox(
+                "错误",
+                "ip地址非法，可能是内部错误,请检查是否使用无线登录，是否开启wifi",
+                self,
+            ).exec()
             return
         # 注销
         log.info("开始注销")
@@ -238,7 +248,6 @@ class LoginWindow(AcrylicWindow, Ui_Form):
         log.info("login完成 以下为login后的mac:")
 
     def normal_login(self, show=True):
-
         log.info("普通login")
 
         username = self.page_0.lineEdit_3.text()
@@ -256,7 +265,10 @@ class LoginWindow(AcrylicWindow, Ui_Form):
 
         wired_kind = None
         if self.page_1.others_ip_rbtn.isChecked():
-            if self.page_1.others_ip_edit.text() is None or self.page_1.others_ip_edit.text() == "":
+            if (
+                self.page_1.others_ip_edit.text() is None
+                or self.page_1.others_ip_edit.text() == ""
+            ):
                 MessageBox("信息缺少", "若指定ip 请填写具体ip地址", self).exec()
                 return
             else:
@@ -273,10 +285,14 @@ class LoginWindow(AcrylicWindow, Ui_Form):
             #     ip = get_local_ip(wired=False)
             #     wire_kind = "1"
             # wire_kind = "0"
-            wired_kind, ip = get_local_ip()
+            wired_kind, ip = self.platform.get_network_manager().get_local_ip()
 
         if wired_kind is None or (not ip.startswith("10")):
-            MessageBox("错误", "ip地址非法，可能是内部错误,请检查是否使用无线登录，是否开启wifi", self).exec()
+            MessageBox(
+                "错误",
+                "ip地址非法，可能是内部错误,请检查是否使用无线登录，是否开启wifi",
+                self,
+            ).exec()
             return
 
         if self.page_3.PC_rbtn.isChecked():
@@ -315,7 +331,7 @@ class LoginWindow(AcrylicWindow, Ui_Form):
             "v": "6305",
         }
         r = requests.get(url=self.BASE_URL, params=params, verify=False, timeout=10)
-        response_text = r.text.encode('utf-8').decode('unicode_escape')
+        response_text = r.text.encode("utf-8").decode("unicode_escape")
         print("responst_text" + response_text)
         # response = json.loads(r.text[1:-1])
         # url = "http://192.168.200.2:801/eportal/?c=Portal&a=login&callback=&login_method=1&user_account=%2C" + method + "%2C" + username + "%40" + \
@@ -325,33 +341,39 @@ class LoginWindow(AcrylicWindow, Ui_Form):
         # log.info(response)
         # log.info(r.text)
         print("cao")
-        content = ''
-        if '({"result":"0","msg":"","ret_code":2})' in response_text or '认证成功' in response_text:
+        content = ""
+        if (
+            '({"result":"0","msg":"","ret_code":2})' in response_text
+            or "认证成功" in response_text
+        ):
             print(response_text)
             print("shit")
-            title = '登录成功'
+            title = "登录成功"
             if '({"result":"0","msg":"","ret_code":2})' in response_text:
                 method_mapping = {"0": "电脑端", "1": "移动端"}
                 content = "重复登录，如果您想更改/伪装新的登录端，请先注销"
                 # 也可能已达到 + method_mapping[self.method]  + 数量限制
         else:
             log.info("登录失败")
-            title = '登录失败'
+            title = "登录失败"
             log.info(response_text)
             # log.info('({"result":"0","msg":"dXNlcmlkIGVycm9yMQ==","ret_code":1})' == r.text)
             log.info("cao")
-            if 'bGRhcCBhdXRoIGVycm9y' in response_text:
+            if "bGRhcCBhdXRoIGVycm9y" in response_text:
                 content = "密码错误或运营商错误，请仔细检查后重试"
-            elif 'aW51c2UsIGxvZ2luI' in response_text:
+            elif "aW51c2UsIGxvZ2luI" in response_text:
                 content = "请再试一次"
             elif '({"result":"0","msg":"","ret_code":1})' in response_text:
                 content = "请仔细检查ip地址等后重试！"
-            elif '({"result":"0","msg":"dXNlcmlkIGVycm9yMQ==","ret_code":1})' in response_text:
+            elif (
+                '({"result":"0","msg":"dXNlcmlkIGVycm9yMQ==","ret_code":1})'
+                in response_text
+            ):
                 content = "请仔细检查运营商/用户名等后重试"
-            elif '密码不能为空' in response_text:
+            elif "密码不能为空" in response_text:
                 # 即({"result":"0","msg":"\u5bc6\u7801\\u4e0d\u80fd\u4e3a\u7a7a"})
                 content = "密码不能为空，请重新填写密码"
-            elif '获取用户ip失败，请重试' in response_text:
+            elif "获取用户ip失败，请重试" in response_text:
                 # 即 '({"result":"0","msg":"\u83b7\u53d6\u7528\u6237IP\u5931\u8d25\uff0c\u8bf7\u91cd\u8bd5\uff01"})'
                 content = "请填写本机ip，Tips:可以按下”获取本机ip“按钮，一键填写"
             content += f"\n \n {response_text}\n"
@@ -363,15 +385,15 @@ class LoginWindow(AcrylicWindow, Ui_Form):
             # w.setWindowModality(Qt.WindowModality)  # 阻塞主窗口
 
             if w.exec():
-                log.info('Yes button is pressed')
+                log.info("Yes button is pressed")
             else:
-                log.info('Cancel button is pressed')
+                log.info("Cancel button is pressed")
             return False
         return True
 
     def on_special_login_finished(self):
         if self.page_4.stateTooltip:
-            self.page_4.stateTooltip.setContent('登录完成啦 😆')
+            self.page_4.stateTooltip.setContent("登录完成啦 😆")
             self.page_4.stateTooltip.setState(True)
             self.page_4.stateTooltip = None
         self.nextButton.setEnabled(True)
@@ -384,12 +406,12 @@ class LoginWindow(AcrylicWindow, Ui_Form):
             # pixmap = QPixmap("./resource/images/middle.jpg").scaled(
             self.label.size(),
             Qt.AspectRatioMode.KeepAspectRatioByExpanding,
-            Qt.TransformationMode.SmoothTransformation
+            Qt.TransformationMode.SmoothTransformation,
         )
         self.label.setPixmap(pixmap)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = QApplication(sys.argv)
 
     # Internationalization

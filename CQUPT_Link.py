@@ -333,7 +333,6 @@ class LoginWindow(AcrylicWindow, Ui_Form):
             r = requests.get(url=self.BASE_URL, params=params, verify=False, timeout=15)
         except Exception as e:
             log.error(f"校园网连接失败: {str(e)}")
-            MessageBox("连接失败", f"无法连接到校园网服务器\n\n可能原因:\n• 服务器繁忙\n• 网络不稳定\n• 您可能已登录\n• 没有选择CQUPT相关WIFI\n• 开启了其他代理\n\n请稍后重试", self).exec()
             return False
         response_text = r.text.encode("utf-8").decode("unicode_escape")
         print("responst_text" + response_text)

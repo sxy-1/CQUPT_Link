@@ -329,11 +329,7 @@ class LoginWindow(AcrylicWindow, Ui_Form):
             "jsVersion": "3.3.3",
             "v": "6305",
         }
-        try:
-            r = requests.get(url=self.BASE_URL, params=params, verify=False, timeout=15)
-        except Exception as e:
-            log.error(f"校园网连接失败: {str(e)}")
-            return False
+        r = requests.get(url=self.BASE_URL, params=params, verify=False, timeout=15)
         response_text = r.text.encode("utf-8").decode("unicode_escape")
         print("responst_text" + response_text)
         # response = json.loads(r.text[1:-1])

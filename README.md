@@ -43,7 +43,7 @@
 
 ```
 |----account.db         sqlite3数据库 如果没有自动生成
-|----change_mac_csdn.py 跨平台MAC地址修改
+|----change_mac_csdn.py 修改mac
 |----config.json        设置间隔时间、编码
 |----config.py          配置文件处理
 |----ConnectDb.py       连接数据库程序

@@ -10,7 +10,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6.QtWidgets import QButtonGroup, QTreeWidgetItem
 
-from Logger import log
+from logger import log
 
 
 class page0(QtWidgets.QWidget):
@@ -25,13 +25,19 @@ class page0(QtWidgets.QWidget):
         self.page0_vLayout.setContentsMargins(20, 20, 20, 20)
         self.page0_vLayout.setSpacing(9)
         self.page0_vLayout.setObjectName("verticalLayout_biggest")
-        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum,
-                                           QtWidgets.QSizePolicy.Policy.Expanding)
+        spacerItem = QtWidgets.QSpacerItem(
+            20,
+            40,
+            QtWidgets.QSizePolicy.Policy.Minimum,
+            QtWidgets.QSizePolicy.Policy.Expanding,
+        )
         self.page0_vLayout.addItem(spacerItem)
         self.label_2 = QtWidgets.QLabel()
         self.label_2.setEnabled(True)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred,
-                                           QtWidgets.QSizePolicy.Policy.Expanding)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Policy.Preferred,
+            QtWidgets.QSizePolicy.Policy.Expanding,
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.label_2.sizePolicy().hasHeightForWidth())
@@ -44,8 +50,12 @@ class page0(QtWidgets.QWidget):
         self.label_2.setObjectName("label_2")
         self.label_2.setVisible(False)
         self.page0_vLayout.addWidget(self.label_2)
-        spacerItem1 = QtWidgets.QSpacerItem(20, 15, QtWidgets.QSizePolicy.Policy.Minimum,
-                                            QtWidgets.QSizePolicy.Policy.Fixed)
+        spacerItem1 = QtWidgets.QSpacerItem(
+            20,
+            15,
+            QtWidgets.QSizePolicy.Policy.Minimum,
+            QtWidgets.QSizePolicy.Policy.Fixed,
+        )
         self.page0_vLayout.addItem(spacerItem1)
         self.gridLayout = QtWidgets.QGridLayout()
         self.gridLayout.setHorizontalSpacing(4)
@@ -106,28 +116,44 @@ class page0(QtWidgets.QWidget):
         self.lineEdit_4.setClearButtonEnabled(True)
         self.lineEdit_4.setObjectName("lineEdit_4")
         self.page0_vLayout.addWidget(self.lineEdit_4)
-        spacerItem2 = QtWidgets.QSpacerItem(20, 5, QtWidgets.QSizePolicy.Policy.Minimum,
-                                            QtWidgets.QSizePolicy.Policy.Fixed)
+        spacerItem2 = QtWidgets.QSpacerItem(
+            20,
+            5,
+            QtWidgets.QSizePolicy.Policy.Minimum,
+            QtWidgets.QSizePolicy.Policy.Fixed,
+        )
         self.page0_vLayout.addItem(spacerItem2)
 
         # self.checkBox = CheckBox()
         # self.checkBox.setChecked(True)
         # self.checkBox.setObjectName("checkBox")
         # self.page0_vLayout.addWidget(self.checkBox)
-        spacerItem3 = QtWidgets.QSpacerItem(20, 5, QtWidgets.QSizePolicy.Policy.Minimum,
-                                            QtWidgets.QSizePolicy.Policy.Fixed)
+        spacerItem3 = QtWidgets.QSpacerItem(
+            20,
+            5,
+            QtWidgets.QSizePolicy.Policy.Minimum,
+            QtWidgets.QSizePolicy.Policy.Fixed,
+        )
         self.page0_vLayout.addItem(spacerItem3)
         # self.pushButton = PrimaryPushButton()
         # self.pushButton.setObjectName("pushButton")
         # self.page0_vLayout.addWidget(self.pushButton)
-        spacerItem4 = QtWidgets.QSpacerItem(20, 6, QtWidgets.QSizePolicy.Policy.Minimum,
-                                            QtWidgets.QSizePolicy.Policy.Fixed)
+        spacerItem4 = QtWidgets.QSpacerItem(
+            20,
+            6,
+            QtWidgets.QSizePolicy.Policy.Minimum,
+            QtWidgets.QSizePolicy.Policy.Fixed,
+        )
         self.page0_vLayout.addItem(spacerItem4)
         self.pushButton_2 = HyperlinkButton()
         self.pushButton_2.setObjectName("pushButton_2")
         self.page0_vLayout.addWidget(self.pushButton_2)
-        spacerItem5 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum,
-                                            QtWidgets.QSizePolicy.Policy.Expanding)
+        spacerItem5 = QtWidgets.QSpacerItem(
+            20,
+            40,
+            QtWidgets.QSizePolicy.Policy.Minimum,
+            QtWidgets.QSizePolicy.Policy.Expanding,
+        )
         self.page0_vLayout.addItem(spacerItem5)
 
         self.retranslateUi()
@@ -163,8 +189,12 @@ class page1(QtWidgets.QWidget):
         self.vLayout.setContentsMargins(20, 20, 20, 20)
         # self.vLayout.setSpacing(30)
         self.vLayout.setObjectName("verticalLayout_biggest")
-        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum,
-                                           QtWidgets.QSizePolicy.Policy.Expanding)
+        spacerItem = QtWidgets.QSpacerItem(
+            20,
+            40,
+            QtWidgets.QSizePolicy.Policy.Minimum,
+            QtWidgets.QSizePolicy.Policy.Expanding,
+        )
         self.vLayout.addItem(spacerItem)
 
         self.local_ip_rbtn = RadioButton()
@@ -214,8 +244,12 @@ class page2(QtWidgets.QWidget):
         self.vLayout.setContentsMargins(20, 20, 20, 20)
         # self.vLayout.setSpacing(3)
         self.vLayout.setObjectName("verticalLayout_biggest")
-        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum,
-                                           QtWidgets.QSizePolicy.Policy.Expanding)
+        spacerItem = QtWidgets.QSpacerItem(
+            20,
+            40,
+            QtWidgets.QSizePolicy.Policy.Minimum,
+            QtWidgets.QSizePolicy.Policy.Expanding,
+        )
         self.vLayout.addItem(spacerItem)
 
         self.wired_rbtn = RadioButton()
@@ -250,8 +284,12 @@ class page3(QtWidgets.QWidget):
         self.vLayout.setContentsMargins(20, 20, 20, 20)
         # self.vLayout.setSpacing(3)
         self.vLayout.setObjectName("verticalLayout_biggest")
-        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum,
-                                           QtWidgets.QSizePolicy.Policy.Expanding)
+        spacerItem = QtWidgets.QSpacerItem(
+            20,
+            40,
+            QtWidgets.QSizePolicy.Policy.Minimum,
+            QtWidgets.QSizePolicy.Policy.Expanding,
+        )
         self.vLayout.addItem(spacerItem)
 
         self.PC_rbtn = RadioButton()
@@ -283,8 +321,12 @@ class page4(QtWidgets.QWidget):
         self.vLayout.setContentsMargins(20, 20, 20, 20)
         # self.vLayout.setSpacing(3)
         self.vLayout.setObjectName("verticalLayout_biggest")
-        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum,
-                                           QtWidgets.QSizePolicy.Policy.Expanding)
+        spacerItem = QtWidgets.QSpacerItem(
+            20,
+            40,
+            QtWidgets.QSizePolicy.Policy.Minimum,
+            QtWidgets.QSizePolicy.Policy.Expanding,
+        )
         self.vLayout.addItem(spacerItem)
 
         # Create a horizontal layout for stateTooltip
@@ -293,10 +335,15 @@ class page4(QtWidgets.QWidget):
         self.stateTooltip = None
         # Add spacer to the left to push the tooltip to the right
         hLayout.addItem(
-            QtWidgets.QSpacerItem(160, 160, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum))
+            QtWidgets.QSpacerItem(
+                160,
+                160,
+                QtWidgets.QSizePolicy.Policy.Expanding,
+                QtWidgets.QSizePolicy.Policy.Minimum,
+            )
+        )
         # 不要添加None widget到布局中
         # hLayout.addWidget(self.stateTooltip)
-
 
         self.normal_login_rbtn = RadioButton()
         self.normal_login_rbtn.setObjectName("normal_login_rbtn")
@@ -317,14 +364,14 @@ class page4(QtWidgets.QWidget):
 
     def retranslateUi(self):
         self.normal_login_rbtn.setText("普通登录")
-        self.special_login_rbtn.setText("特殊登录")
+        self.special_login_rbtn.setText("特殊登录（已失效）")
 
 
 class Ui_Form(object):
     login_button_clicked = pyqtSignal()
+
     def setupUi(self, Form):
         log.info("c")
-
 
         Form.setObjectName("Form")
         Form.resize(1250, 1000)
@@ -355,17 +402,19 @@ class Ui_Form(object):
 
         # 右上角的stackedWidget
         self.stackedWidget = QtWidgets.QStackedWidget(parent=Form)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred,
-                                           QtWidgets.QSizePolicy.Policy.Preferred)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Policy.Preferred,
+            QtWidgets.QSizePolicy.Policy.Preferred,
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.stackedWidget.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.stackedWidget.sizePolicy().hasHeightForWidth()
+        )
         self.stackedWidget.setSizePolicy(sizePolicy)
         self.stackedWidget.setMinimumSize(QtCore.QSize(360, 0))
         self.stackedWidget.setMaximumSize(QtCore.QSize(360, 16777215))
-        self.stackedWidget.setStyleSheet("QLabel{\n"
-                                         "    font: 13px \'Microsoft YaHei\'\n"
-                                         "}")
+        self.stackedWidget.setStyleSheet("QLabel{\n    font: 13px 'Microsoft YaHei'\n}")
         self.stackedWidget.setObjectName("stackedWidget")
 
         # page_0 主页登录页
@@ -402,7 +451,9 @@ class Ui_Form(object):
         self.page_change_widget.setLayout(self.page_change_hlayout)
 
         self.nextButton = PrimaryPushButton(text="下一步", parent=self.right_big_widget)
-        self.previousButton = TransparentPushButton(text="上一步", parent=self.right_big_widget)
+        self.previousButton = TransparentPushButton(
+            text="上一步", parent=self.right_big_widget
+        )
         self.nextButton.clicked.connect(self.click_next)
         self.previousButton.clicked.connect(self.click_previous)
 
@@ -452,15 +503,22 @@ class Ui_Form(object):
         else:
             self.nextButton.setText("下一步")
 
-
-
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
 
 
-from qfluentwidgets import BodyLabel, CheckBox, HyperlinkButton, LineEdit, PrimaryPushButton, PushButton, RadioButton, \
-    TreeWidget, TransparentPushButton
+from qfluentwidgets import (
+    BodyLabel,
+    CheckBox,
+    HyperlinkButton,
+    LineEdit,
+    PrimaryPushButton,
+    PushButton,
+    RadioButton,
+    TreeWidget,
+    TransparentPushButton,
+)
 
 if __name__ == "__main__":
     import sys

@@ -1,3 +1,4 @@
+import locale
 from src.network_manager.network_interface import INetwork
 
 import socket
@@ -5,7 +6,7 @@ import time
 
 import psutil
 import subprocess
-from Logger import log
+from logger import log
 
 
 class NetworkWindows(INetwork):
@@ -21,7 +22,10 @@ class NetworkWindows(INetwork):
             # 查看是否已连接
             time.sleep(2)
             result = subprocess.run(
-                ["netsh", "wlan", "show", "interfaces"], capture_output=True, text=True
+                ["netsh", "wlan", "show", "interfaces"],
+                capture_output=True,
+                text=True,
+                encoding=locale.getpreferredencoding(),
             )
             if ssid in result.stdout:
                 log.info("已经连接")
@@ -46,6 +50,7 @@ class NetworkWindows(INetwork):
                 ["ipconfig", "/all"],
                 stdout=subprocess.PIPE,
                 text=True,
+                encoding=locale.getpreferredencoding(),
                 startupinfo=self.startupinfo,
             )
             output = result.stdout
@@ -73,6 +78,7 @@ class NetworkWindows(INetwork):
                 ["ipconfig", "/all"],
                 stdout=subprocess.PIPE,
                 text=True,
+                encoding=locale.getpreferredencoding(),
                 startupinfo=self.startupinfo,
             )
             output = result.stdout

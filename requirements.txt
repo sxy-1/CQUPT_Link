@@ -5,30 +5,17 @@ PyQt6-Frameless-Window>=0.3.6
 requests>=2.31.0
 psutil>=5.9.7
 
-# 数据处理
-numpy>=1.26.2
-Pillow>=9.4.0
 
 # 网络和解析
-lxml>=5.2.1
 urllib3>=2.1.0
 certifi>=2023.11.17
 charset-normalizer>=3.3.2
 idna>=3.6
 
-# 工具库
-click>=8.1.7
-colorama>=0.4.6
-packaging>=23.2
-filelock>=3.13.4
-
 # 开发和构建工具
 pyinstaller>=6.3.0
 
 # Windows特定依赖 (仅在Windows上需要)
-pywin32>=306; sys_platform == "win32"
-WMI>=1.5.1; sys_platform == "win32"
-Win32Security>=2.1.0; sys_platform == "win32"
 chardet>=5.2.0; sys_platform == "win32"
 
 # macOS特定依赖 (仅在macOS上需要)
@@ -37,7 +24,5 @@ pyobjc-framework-SystemConfiguration>=11.1; sys_platform == "darwin"
 pyobjc-framework-CoreWLAN>=11.1; sys_platform == "darwin"
 
 # 可选依赖 (用于其他功能)
-# openpyxl>=3.1.2
-# DrissionPage>=4.0.4.21
-# speedtest-cli>=2.1.3
-# scapy>=2.5.0
+DrissionPage>=4.0.4.21
+

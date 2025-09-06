@@ -1,6 +1,5 @@
 import sys
 import time
-import platform
 import webbrowser
 from PyQt6.QtCore import Qt, QLocale, QObject, pyqtSignal, QThread
 from PyQt6.QtGui import QIcon, QPixmap

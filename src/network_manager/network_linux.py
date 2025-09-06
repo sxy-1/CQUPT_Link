@@ -279,11 +279,7 @@ class NetworkLinux(INetwork):
             # 再次检查WiFi连接
             time.sleep(5)  # 等待连接稳定
             if self._is_wifi_connected():
-                wifi_interfaces = [
-                    iface
-                    for iface in psutil.net_if_addrs()
-                    if iface.startswith("wlan") or iface.startswith("wifi")
-                ]
+                wifi_interfaces = self._get_wireless_interfaces()
                 for interface_name in wifi_interfaces:
                     stats = psutil.net_if_stats().get(interface_name)
                     if stats and stats.isup:

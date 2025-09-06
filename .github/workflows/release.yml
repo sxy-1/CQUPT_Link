@@ -1,0 +1,43 @@
+name: Windows Release on Merge to Main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置Python环境
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 安装依赖
+        run: pip install -r requirements.txt
+
+      - name: 安装PyInstaller
+        run: pip install pyinstaller
+
+      - name: 打包为Windows可执行文件
+        run: pyinstaller -w -i .\resource\images\favicon.ico CQUPT_Link.py
+
+      - name: 提取版本号
+        id: get_version
+        run: |
+          $content = Get-Content README.md
+          $version = ($content | Select-String -Pattern 'img src="https://img.shields.io/badge/version-(.*?)-' | ForEach-Object { $_.Matches[0].Groups[1].Value })[0]
+          echo "version=$version" >> $env:GITHUB_ENV
+
+      - name: 创建Release并上传产物
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ env.version }}
+          name: Release v${{ env.version }}
+          files: dist/CQUPT_Link/CQUPT_Link.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

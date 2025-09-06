@@ -46,6 +46,7 @@ class NetworkWindows(INetwork):
                 ["ipconfig", "/all"],
                 stdout=subprocess.PIPE,
                 text=True,
+                encoding="gbk",
                 startupinfo=self.startupinfo,
             )
             output = result.stdout
@@ -73,6 +74,7 @@ class NetworkWindows(INetwork):
                 ["ipconfig", "/all"],
                 stdout=subprocess.PIPE,
                 text=True,
+                encoding="gbk",
                 startupinfo=self.startupinfo,
             )
             output = result.stdout

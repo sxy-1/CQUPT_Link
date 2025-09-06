@@ -317,7 +317,7 @@ class page4(QtWidgets.QWidget):
 
     def retranslateUi(self):
         self.normal_login_rbtn.setText("普通登录")
-        self.special_login_rbtn.setText("特殊登录")
+        self.special_login_rbtn.setText("特殊登录（已失效）")
 
 
 class Ui_Form(object):

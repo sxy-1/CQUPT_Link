@@ -12,16 +12,15 @@ from qfluentwidgets import (
     MessageBox,
     StateToolTip,
 )
-from change_mac_csdn import SetMac
+from src.deprecated.change_mac_csdn import SetMac
 from LoginWindow import Ui_Form
 from ConnectDb import ConnectDb
-import images  # 不要删，导入qrc文件
+import images  # 不要删，导入qrc文件 # noqa
 from Logger import log
-from is_admin import is_admin
+from src.deprecated.is_admin import is_admin #deprecated # noqa 
 import requests
 from Logout import *
-import json
-import config
+import src.deprecated.config as config
 from src.factory import Factory
 
 ## Disable SSL verification warnings.

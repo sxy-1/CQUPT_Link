@@ -8,7 +8,7 @@ import subprocess
 import sys
 import winreg
 from Logger import log
-import config
+import src.deprecated.config as config
 import chardet
 
 class SetMac(object):

@@ -10,16 +10,15 @@ from qfluentwidgets import (
     FluentTranslator,
     SplitTitleBar,
     MessageBox,
-    StateToolTip,
 )
 from src.deprecated.change_mac_csdn import SetMac
-from LoginWindow import Ui_Form
-from ConnectDb import ConnectDb
+from login_window import Ui_Form
+from connect_db import ConnectDb
 import images  # 不要删，导入qrc文件 # noqa
-from Logger import log
-from src.deprecated.is_admin import is_admin #deprecated # noqa 
+from logger import log
+from src.deprecated.is_admin import is_admin  # deprecated # noqa
 import requests
-from Logout import *
+from logout import query_user_info, fuck_user
 import src.deprecated.config as config
 from src.factory import Factory
 
@@ -27,6 +26,14 @@ from src.factory import Factory
 from urllib3.exceptions import InsecureRequestWarning
 
 requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
+
+# 强制取消代理带来的干扰
+proxies = {
+    "http": None,
+    "https": None,
+}
+session = requests.Session()
+session.proxies.update(proxies)
 
 
 class Mysignals(QObject):
@@ -259,7 +266,9 @@ class LoginWindow(AcrylicWindow, Ui_Form):
         else:
             MessageBox("信息缺少", "未选择运营商", self).exec()
             return
-
+        if not username or not password:
+            MessageBox("信息缺少", "请填写用户名和密码", self).exec()
+            return
         wired_kind = None
         if self.page_1.others_ip_rbtn.isChecked():
             if (
@@ -302,16 +311,6 @@ class LoginWindow(AcrylicWindow, Ui_Form):
         else:
             login_method = "1"
 
-        # 保存到数据库
-        self.db.insert_user(username, password, isp, ip_master, method, login_method)
-
-        #
-        # log.info(self.page_0.lineEdit.text())
-        # log.info(self.method)
-        # log.info(self.page_0.lineEdit_3.text())
-        # log.info(self.page_0.lineEdit_4.text())
-        # log.info(self.page_0.LineEdit.text())
-
         params = {
             "c": "Portal",
             "a": "login",
@@ -327,22 +326,31 @@ class LoginWindow(AcrylicWindow, Ui_Form):
             "jsVersion": "3.3.3",
             "v": "6305",
         }
-        r = requests.get(url=self.BASE_URL, params=params, verify=False, timeout=15)
+        try:
+            r = requests.get(
+                url=self.BASE_URL,
+                params=params,
+                proxies=proxies,
+                verify=False,
+                timeout=15,
+            )
+        except requests.exceptions.RequestException as e:
+            MessageBox(
+                "网络异常", f"网络异常，无法连接到服务器，请检查网络\n{e}", self
+            ).exec()
+            return
         response_text = r.text.encode("utf-8").decode("unicode_escape")
         print("responst_text" + response_text)
-        # response = json.loads(r.text[1:-1])
-        # url = "http://192.168.200.2:801/eportal/?c=Portal&a=login&callback=&login_method=1&user_account=%2C" + method + "%2C" + username + "%40" + \
-        #       isp + "&user_password=" + password + "&wlan_user_ip=" + self.page_0.LineEdit.text() + "&wlan_user_ipv6=&wlan_user_mac=000000000000&wlan_ac_ip=&wlan_ac_name=&jsVersion=3.3.3&v=6305"
-        # log.info(url)
-        # response = requests.get(url)
-        # log.info(response)
-        # log.info(r.text)
         print("cao")
         content = ""
         if (
             '({"result":"0","msg":"","ret_code":2})' in response_text
             or "认证成功" in response_text
         ):
+            # 保存到数据库
+            self.db.insert_user(
+                username, password, isp, ip_master, method, login_method
+            )
             print(response_text)
             print("shit")
             title = "登录成功"

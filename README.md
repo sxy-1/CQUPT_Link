@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="18%" align="center" src="https://obssh.obs.cn-east-3.myhuaweicloud.com/img_sxy/202312262148798.png" alt="logo">
+  <img width="18%" align="center" src="https://github.com/user-attachments/assets/f4baa5c8-60b2-4b29-82c3-df708035d970" alt="logo">
 </p>
   <h1 align="center">
   重邮校园网客户端登录
@@ -15,68 +15,68 @@
     <img src="https://img.shields.io/badge/License-GPLv3-blue?color=#4ec820" alt="GPLv3"/>
     </a>
     <a style="text-decoration:none">
-    <img src="https://img.shields.io/badge/version-2.0.1-blue?color=#4ec820" alt="v2.0.2"/>
+    <img src="https://img.shields.io/badge/version-2.0.2-blue?color=#4ec820" alt="v2.0.2"/>
   </a>
 </p>
-
-
 
 ### 介绍
 
 本程序基于pyqt6开发，使用pyqt6-fluent-widgets美化组件，提供重邮校园网伪装设备类型，gui登录等。
 
-![image-20240606140255392](https://obssh.obs.cn-east-3.myhuaweicloud.com/img_sxy/202406061402629.png)
+![image-20240606140255392](https://github.com/user-attachments/assets/04d0df24-0594-431e-a586-aae823965dc8)
 
 ### 功能
 
-- [x] 电脑端/移动端切换
-
-- [x] 通过伪装，支持双电脑同时在线
-
-- [x] 特殊登录？
-
+- [X] 电脑端/移动端切换
+- [X] 通过伪装，支持双电脑同时在线
+- [X] 特殊登录（已失效）
 - [ ] 突破坑位限制-不支持
-
-
 
 ### 项目结构
 
 ```
-|----account.db         sqlite3数据库 如果没有自动生成
-|----change_mac_csdn.py 修改mac
-|----config.json        设置间隔时间、编码
-|----config.py          配置文件处理
-|----ConnectDb.py       连接数据库程序
-|----CQUPT_Link.py      主程序
-|----images.py          Qt资源文件 (图片资源)
-|----images.qrc         Qt资源配置文件
-|----is_admin.py        跨平台管理员权限检查
-|----LICENSE            GPL-3.0 license
-|----log\               日志文件
-|----Logger.py          日志处理
-|----LoginWindow.py     登录界面
-|----Logout.py          校园网注销
-|----README.md          README
-|----requirements.txt   跨平台依赖配置
-|----resource\          资源文件
-|----src\               多平台架构支持
-|----untitled.ui        源ui
-|----zifuwu.py          打开自服务
+|----CQUPT_Link.py       	            主程序 ！！！！
+|----account.db                         sqlite3数据库 如果没有自动生成
+|----connect_db.py        	            连接数据库程序
+|----images.py           	            Qt资源文件（图片资源）
+|----LICENSE             	            GPL-3.0 license
+|----logger.py           	            日志处理
+|----login_window.py      	            登录界面
+|----logout.py           	            校园网注销
+|----README.md           	            README
+|----requirements.txt    	            跨平台依赖配置
+|----zifuwu.py           	            打开自服务
+|----src\                	            多平台架构支持
+|    |----factory.py     	            工厂方法
+|    |----deprecated\    	            已弃用模块（弃用）
+|    |    |----change_mac_csdn.py   	修改mac（弃用）
+|    |    |----config.py            	配置文件处理（弃用）
+|    |    |----is_admin.py          	跨平台管理员权限检查（弃用）
+|    |    |----README.md            	弃用模块说明
+|    |----network_manager\ 	            网络管理模块
+|    |    |----network_interface.py 	网络接口
+|    |    |----network_linux.py     	Linux网络实现
+|    |    |----network_macos.py     	MacOS网络实现
+|    |    |----network_windows.py   	Windows网络实现
+|    |----platform\       	            平台相关模块
+|    |    |----platform_interface.py	平台接口
+|    |    |----platform_linux.py    	Linux平台实现
+|    |    |----platform_macos.py    	MacOS平台实现
+|    |    |----platform_windows.py  	Windows平台实现
 
 ```
-
-
 
 ### 自编译
 
 如果您想自行编译源码，在导入requirements后
+
 ```
 pyinstaller -w -i .\resource\images\favicon.ico CQUPT_Link.py
 ```
 
+### 特殊登录(已失效)
 
-
-### 使用须知
+> 注：特殊登录已于24年07月被学校修复。原功能为破解学校限速，现已失效。非常遗憾的是我们至今仍未知晓破解限速原理。
 
 特殊登录仅供学习交流。
 
@@ -84,37 +84,21 @@ pyinstaller -w -i .\resource\images\favicon.ico CQUPT_Link.py
 
 再次强调，需要静等一分钟，直至出现弹窗。
 
-若有任何bug，请提交issue或直接与作者联系。
-
-
-
-
-
-## 其他
-
 我们目前需要更多朋友们帮我们完善该程序。
 
 - 当前config.json的间隔时间不稳定，需要更多测试。
-
 - 登录过程无法正常显示进度条。
-
 - 没有网速测速模块。
-
 - 无法python模拟dhcp请求。
 
 如果您可以提供代码上的帮助，欢迎与我们联系，万分感谢。
 
-
-
 ### 参考
 
 [校园网自动登录全平台解决方案 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/364016452?utm_medium=social&utm_oi=1112727310867927040&utm_id=0)
-
-
 
 ### 许可证
 
 CQUPT_Link 使用 GPLv3 许可证.
 
 Copyright © 2023 by dullspear
-

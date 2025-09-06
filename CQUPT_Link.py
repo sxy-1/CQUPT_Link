@@ -1,7 +1,5 @@
 import sys
-
 import time
-
 import webbrowser
 from PyQt6.QtCore import Qt, QLocale, QObject, pyqtSignal, QThread
 from PyQt6.QtGui import QIcon, QPixmap
@@ -330,7 +328,7 @@ class LoginWindow(AcrylicWindow, Ui_Form):
             "jsVersion": "3.3.3",
             "v": "6305",
         }
-        r = requests.get(url=self.BASE_URL, params=params, verify=False, timeout=10)
+        r = requests.get(url=self.BASE_URL, params=params, verify=False, timeout=15)
         response_text = r.text.encode("utf-8").decode("unicode_escape")
         print("responst_text" + response_text)
         # response = json.loads(r.text[1:-1])
